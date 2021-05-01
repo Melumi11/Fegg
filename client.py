@@ -28,7 +28,7 @@ class Client(discord.Client):
                                          description="I am a bot coded by Melumi#5395. You can find my source code at https://github.com/Melumi11/Fegg/\nAll commands can be viewed by typing `/`",
                                          color=0x00ff00)
                 embedVar.add_field(name=("List of commands:"),
-                                   value="`!help` (this command)\n`/sweat` (For the Colin Cult big-sweaters) ||Also `!sweat`||\n`/roll` (rolls a single die with up to a billion faces)\n`/download` (given a link to a website with audio, Fegg attempts to find a direct link using youtube-dl)",
+                                   value="`!help` (this command)\n`!sweat` (:colinsweat:)\n`/roll` (rolls a single die with up to a billion faces)\n`/download` (given a link to a website with audio, Fegg attempts to find a direct link using youtube-dl)",
                                    inline=False)
                 await message.channel.send(embed=embedVar)
         elif 'parm' in message_lower:  # parm
