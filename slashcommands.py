@@ -1,6 +1,6 @@
 import youtube_dl
 import random
-from discord_slash import SlashCommand
+# from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
 
 def Slash(slash):
