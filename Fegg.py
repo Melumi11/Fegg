@@ -3,6 +3,7 @@ import discord
 import logging
 from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
+
 # -----------------------------------------------------------------------#
 
 # -------------------------------variables-------------------------------#
@@ -50,9 +51,9 @@ class MyClient(discord.Client):
                 await message.author.send("https://images.heb.com/is/image/HEBGrocery/000081264")
 
 # -----------------------------Slash Commands----------------------------#
-client = MyClient()  # MyClient()
-slash = SlashCommand(client, sync_commands=True)  # Declares slash commands through the client.
-from slashcommands import *
+client = MyClient()
+slash = SlashCommand(client, sync_commands=True) # Declares slash commands through the client.
+import slashcommands
 # -----------------------------------------------------------------------#
 
 # -------------------------------Launch bot------------------------------#
