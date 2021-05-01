@@ -3,7 +3,7 @@ import random
 from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
 
-class Slash(SlashCommand(client, sync_commands=True)):
+def Slash(slash):
     print("imported!")
     # Sweat
     @slash.slash(name="sweat", description=":colinsweat:")
