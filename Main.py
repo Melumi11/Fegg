@@ -3,22 +3,27 @@ import logging
 from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
 from Client import *
+from slashcommands import Slash
 
 # -----------------------------------------------------------------------#
 
-# -------------------------------variables-------------------------------#
-client = Client()
-# -----------------------------------------------------------------------#
 
 # Logging errors
 logging.basicConfig(level=logging.ERROR)
 
 
-# -----------------------------slash commands----------------------------#
-slash = SlashCommand(client, sync_commands=True) # Declares slash commands through the client.
-from slashcommands import *
+# -------------------------------variables-------------------------------#
+client = Client()
 
 # -----------------------------------------------------------------------#
+
+
+# -----------------------------slash commands----------------------------#
+slash = SlashCommand(client, sync_commands=True) # Declares slash commands through the client.
+Slash(slash)
+
+# -----------------------------------------------------------------------#
+
 
 # -------------------------------launch bot------------------------------#
 with open('token.txt') as f:
