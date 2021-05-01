@@ -2,8 +2,8 @@
 import logging
 from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
-from Client import *
-from slashcommands import Slash
+from client import *
+from slashcommands import init_slashcommands
 
 # -----------------------------------------------------------------------#
 
@@ -20,7 +20,7 @@ client = Client()
 
 # -----------------------------slash commands----------------------------#
 slash = SlashCommand(client, sync_commands=True) # Declares slash commands through the client.
-Slash(slash)
+init_slashcommands(slash)
 
 # -----------------------------------------------------------------------#
 

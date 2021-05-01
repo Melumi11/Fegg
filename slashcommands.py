@@ -3,13 +3,8 @@ import random
 # from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
 
-def Slash(slash):
-    print("imported!")
-    # Sweat
-    @slash.slash(name="sweat", description=":colinsweat:")
-    async def sweat(ctx):
-        await ctx.send("https://cdn.discordapp.com/attachments/822493563619246131/822498710873178133/unknown.png")
-
+def init_slashcommands(slash):
+    print("slash commands initialized!")
 
     # Roll
     @slash.slash(name="roll", description="Dice roll command, up to 999,999,999",
