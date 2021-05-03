@@ -3,8 +3,9 @@ import random
 # from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
 
+slash = None
 
-def roll(slash):
+def roll():
     description = "Dice roll command, up to 999,999,999"
     options = [create_option(
                     name="d",
@@ -19,7 +20,7 @@ def roll(slash):
         else:
             await ctx.send(content="Please enter a number between one and one billion")
 
-def download(slash):
+def download():
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -51,7 +52,9 @@ def download(slash):
 
 commands = {roll, download}
 
-def init_slashcommands(slash):
+def init_slashcommands(main_slash):
+    global slash
+    slash = main_slash
     for i in commands:
-        i(slash)
+        i()
     print("slash commands initialized!")
