@@ -1,10 +1,8 @@
-from discord_slash.model import SlashCommandOptionType
 import youtube_dl
 import random
-# from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option
 from discord_slash import SlashCommand
-
+from discord_slash.model import SlashCommandOptionType
 
 def roll():
     description = "Dice roll command, up to 999,999,999"
@@ -38,9 +36,7 @@ def download():
                     option_type=SlashCommandOptionType.STRING,
                     required=True)]
 
-    @slash.slash(name="download",
-                description=description,
-                options=options)
+    @slash.slash(name="download", description=description, options=options)
     async def download(ctx, source):
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             try:
