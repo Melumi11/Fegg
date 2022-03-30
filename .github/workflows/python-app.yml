@@ -1,8 +1,14 @@
 name: Fegg
 
 on:
+  push
+  workflow_dispatch
   schedule:
         - cron: "0 0 * * *" #runs at 00:00 UTC everyday
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.fegg }}
+  cancel-in-progress: true
 
 jobs:
   build:
