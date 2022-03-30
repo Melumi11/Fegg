@@ -23,11 +23,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install -U discord.py
         pip install youtube_dl
         pip install discord-py-slash-command
     - name: execute py script
-      run: |
-        with: 
+      env: 
           TOKEN: ${{ secrets.TOKEN }}
-        ls la
-        ./python main.py
+      run: |
+        python main.py
