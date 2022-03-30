@@ -1,6 +1,5 @@
 # -------------------------------import----------------------------------#
 import logging
-from discord_slash.utils.manage_commands import create_option
 from client import *
 import slashcommands
 # -----------------------------------------------------------------------#
@@ -23,8 +22,11 @@ slashcommands.init_slashcommands(client)
 
 
 # -------------------------------launch bot------------------------------#
-with open('token.txt') as f:
-    TOKEN = f.readline() # bot token in git ignored file
+
+try:
+    with open('token.txt') as f:
+        TOKEN = f.readline() # bot token in git ignored file
+except: pass
 client.run(TOKEN)
 # -----------------------------------------------------------------------#
 
