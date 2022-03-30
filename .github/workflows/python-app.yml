@@ -29,4 +29,5 @@ jobs:
       run: |
         with: 
           TOKEN: ${{ secrets.TOKEN }}
-        python main.py
+        ls la
+        ./python main.py
