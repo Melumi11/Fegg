@@ -1,4 +1,4 @@
-import youtube_dl
+import yt_dlp
 import random
 from discord_slash.utils.manage_commands import create_option
 from discord_slash import SlashCommand
@@ -38,7 +38,7 @@ def download():
 
     @slash.slash(name="download", description=description, options=options)
     async def download(ctx, source):
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             try:
                 r = ydl.extract_info(source, download=False)
                 await ctx.send(r['url'])
