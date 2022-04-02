@@ -19,35 +19,63 @@ def roll():
         else:
             await ctx.send(content="Please enter a number between one and one billion")
 
-def download():
-    ydl_opts = {
+# yt-dlp stuff below:
+error = "no error"
+class MyLogger(object):
+    def debug(self, msg):
+        pass
+    def warning(self, msg):
+        pass
+    def error(self, msg):
+        global error 
+        end = -1 if "Set --default-search \"ytsearch\"" not in msg else msg.find("Set --default-search \"ytsearch\"")
+        error = msg[7:end] # also gets rid of "ERROR: " in output
+ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
+        'logger': MyLogger(),
+        'no_color': True, # gets rid of console color things that show up on discord
         'progress_hooks': []}
-
-    description = "Find an audio file, given a link. Use this if you want to quickly download something."
+def downloadvideo():
+    description = "Download a video from youtube.com or other video platforms."
     options=[create_option(
                     name="source",
-                    description="Link to the media you want to find.",
+                    description="Link to the video you want to download.",
                     option_type=SlashCommandOptionType.STRING,
                     required=True)]
 
-    @slash.slash(name="download", description=description, options=options)
+    @slash.slash(name="downloadvideo", description=description, options=options)
     async def download(ctx, source):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             try:
                 r = ydl.extract_info(source, download=False)
-                await ctx.send(r['url'])
+                urls = [f['url'] for f in r['formats'] if f['acodec'] != 'none' and f['vcodec'] != 'none'] # gets urls with video and audio
+                await ctx.send(urls[-1]) # this is too op
             except Exception as exception:
-                length = 19 + len(source) + 21
-                await ctx.send(f"**{type(exception).__name__}**: `{str(exception)[18:length]}`")
+                await ctx.send(f"**{type(exception).__name__}**: {error}]")
 
+def downloadaudio():
+    description = "Download an audio file, given a media link. Works on YouTube and other sites."
+    options=[create_option(
+                    name="source",
+                    description="Link to the media you want to hear.",
+                    option_type=SlashCommandOptionType.STRING,
+                    required=True)]
 
-commands = {roll, download}
+    @slash.slash(name="downloadaudio", description=description, options=options)
+    async def download(ctx, source):
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            try:
+                r = ydl.extract_info(source, download=False)
+                await ctx.send(r['url']) # gets first audio link
+            except Exception as exception:
+                await ctx.send(f"**{type(exception).__name__}**: {error}")
+
+commands = {roll, downloadvideo, downloadaudio}
 
 def init_slashcommands(client):
     global slash
