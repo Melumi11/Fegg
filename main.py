@@ -2,7 +2,7 @@
 import logging
 from client import *
 import slashcommands
-from os import getenv
+from os import getenv, environ
 # -----------------------------------------------------------------------#
 
 
@@ -26,7 +26,7 @@ slashcommands.init_slashcommands(client)
 
 try:
     with open('token.txt') as f:
-        TOKEN = f.readline() # bot token in git ignored file
+        environ["TOKEN"] = f.readline() # bot token in git ignored file
 except: pass
 try:
     TOKEN = getenv('TOKEN') # set environment variable in github
