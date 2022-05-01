@@ -3,7 +3,7 @@ import discord
 class Client(discord.Client):
     # -------------------------------"Global" Variables:-------------------------------#
     MELUMI = 640714673045504020  # my discord id
-    SUICIDAL = ["kill me", "i’m just tired", "i’m having a bad time", "can this be over now", "no one cares about me", "i can’t do this anymore", "i'm suicidal", "if anything happens to me", "no one cares", "kill myself"]
+    SUICIDAL = ["kill me", "i'm just tired", "i'm having a bad time", "can this be over now", "no one cares about me", "i can't do this anymore", "i'm suicidal", "if anything happens to me", "no one cares about me", "kill myself", "wanna die", "i want to die", "shoot myself", "jump off a bridge", "committing suicide"]
     # ----------------------------------------------------------------------------------#
     # Launch text in terminal
     async def on_ready(self):  # login text, init fighters, self.turn = self.p1
@@ -37,3 +37,14 @@ class Client(discord.Client):
             if i in message_lower:
                     await message.channel.send("Please do not worry. @​everyone is here to help. If you are suicidal, you can find help at: https://suicidepreventionlifeline.org/")
                     await message.author.send("Please do not worry. @everyone is here to help. If you are suicidal, you can find help at: https://suicidepreventionlifeline.org/")
+
+# Reference
+
+# wait:
+# await asyncio.sleep(10)
+# reply:
+# await message.channel.reply('Hello!', mention_author=False)
+
+# Very cool debug command that stops the script and shows all variables, can resume after
+# import code
+# code.interact(local=locals())
