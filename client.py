@@ -25,10 +25,10 @@ class Client(discord.Client):
                     "https://cdn.discordapp.com/attachments/822493563619246131/822498710873178133/unknown.png")
             elif message_lower == '!help':  # help command
                 embedVar = discord.Embed(title="Hi, my name is Fegg!",
-                                         description="I am a bot coded by Melumi#5395. You can find my source code at https://github.com/Melumi11/Fegg/\nAll commands can be viewed by typing `/`",
+                                         description="I am a bot coded by Melumi#4274. You can find my source code at https://github.com/Melumi11/Fegg/\nAll commands can be viewed by typing `/`",
                                          color=0x00ff00)
                 embedVar.add_field(name=("List of commands:"),
-                                   value="`!help` (this command)\n`/roll` (rolls a single die with up to a billion faces)\n`/download` (given a link to a website with audio, Fegg attempts to find a direct link using youtube-dl)\n`!sweat` (:colinsweat:)",
+                                   value="`!help` (this command)\n`/roll` (rolls a single die with up to a billion faces)\n`/downloadAudio` (Download an audio file from any website including YouTube. Uses yt-dlp)\n`/downloadVideo` (Download videos from youtube.com or other video platforms using yt-dlp)\n`!sweat` (:colinsweat:)",
                                    inline=False)
                 await message.channel.send(embed=embedVar)
         elif 'parm' in message_lower:  # parm
