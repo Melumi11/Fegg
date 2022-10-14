@@ -40,7 +40,7 @@ ydl_opts = {
         'logger': MyLogger(),
         'no_color': True, # gets rid of console color things that show up on discord
         'progress_hooks': []}
-def downloadvideo():
+def downloadvideo_command():
     description = "Download a video from youtube.com or other video platforms."
     options=[create_option(
                     name="source",
@@ -49,16 +49,27 @@ def downloadvideo():
                     required=True)]
 
     @slash.slash(name="downloadvideo", description=description, options=options)
-    async def download(ctx, source):
+    async def downloadvideo(ctx, source):
+        global error; error = "uS"
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             try:
                 r = ydl.extract_info(source, download=False)
                 urls = [f['url'] for f in r['formats'] if f['acodec'] != 'none' and f['vcodec'] != 'none'] # gets urls with video and audio
                 await ctx.send(urls[-1]) # this is too op
             except Exception as exception:
-                await ctx.send(f"**{type(exception).__name__}**: {error}]")
+                #print(f"**{type(exception).__name__}**: {error}")
+                if error == "uS":
+                    # try downloadaudio
+                    try:
+                        r = ydl.extract_info(source, download=False)
+                        #print(r['url']) # gets first audio link
+                        await ctx.send(r['url'])
+                    except Exception as exception1:
+                        #print(f"**{type(exception1).__name__}**: {error}")
+                        await ctx.send(f"**{type(exception1).__name__}**: {error}")
+                else: await ctx.send(f"**{type(exception).__name__}**: {error}")
 
-def downloadaudio():
+def downloadaudio_command():
     description = "Download an audio file, given a media link. Works on YouTube and other sites."
     options=[create_option(
                     name="source",
@@ -67,7 +78,7 @@ def downloadaudio():
                     required=True)]
 
     @slash.slash(name="downloadaudio", description=description, options=options)
-    async def download(ctx, source):
+    async def downloadaudio(ctx, source):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             try:
                 r = ydl.extract_info(source, download=False)
@@ -75,7 +86,7 @@ def downloadaudio():
             except Exception as exception:
                 await ctx.send(f"**{type(exception).__name__}**: {error}")
 
-commands = {roll, downloadvideo, downloadaudio}
+commands = {roll, downloadvideo_command, downloadaudio_command}
 
 def init_slashcommands(client):
     global slash
