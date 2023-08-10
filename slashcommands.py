@@ -50,13 +50,16 @@ def downloadvideo_command():
 
     @slash.slash(name="downloadvideo", description=description, options=options)
     async def downloadvideo(ctx, source):
-        global error; error = "uS"
+        global error; error = "uS" # default error
+        await ctx.defer() # defer response to avoid timeout
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             try:
                 r = ydl.extract_info(source, download=False)
-                urls = [f['url'] for f in r['formats'] if f['acodec'] != 'none' and f['vcodec'] != 'none'] # gets urls with video and audio
-                await ctx.send(urls[-1]) # this is too op
+                # find url with video and audio
+                urls = [f['url'] for f in r['formats'] if 'acodec' in f and 'vcodec' in f and f['acodec'] != 'none' and f['vcodec'] != 'none'] # gets urls with video and audio
+                await ctx.send(urls[-1]) # highest quality link with video + audio
             except Exception as exception:
+                print(exception)
                 #print(f"**{type(exception).__name__}**: {error}")
                 if error == "uS":
                     # try downloadaudio
